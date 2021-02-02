@@ -17,7 +17,9 @@ The examples below require [Docker](https://www.docker.com/) and [jq](https://st
 
 ## App Protect Tool Instructions
 
-Build the tools container:
+Copy your NGINX repo Certificate and Key files to the `license` directory.
+
+Then, build the tools container:
 
 ``` shell
 docker build -t app-protect-tools .
