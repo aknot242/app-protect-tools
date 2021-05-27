@@ -6,3 +6,6 @@ curl https://raw.githubusercontent.com/aknot242/ansible-uber-demo/master/ansible
 
 echo "Converting example ASM policy to NAP JSON declarative format. Unsupported features during conversion will show as warnings."
 /opt/app_protect/bin/convert-policy -i /tmp/asm_policy.xml -o /tmp/nap_policy.json | jq
+
+echo "Creating YAML version of converted policy"
+yq eval -P /tmp/nap_policy.json > /tmp/nap_policy.yaml

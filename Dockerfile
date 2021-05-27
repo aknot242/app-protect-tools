@@ -13,15 +13,21 @@ RUN wget -O /etc/apk/keys/nginx_signing.rsa.pub https://cs.nginx.com/static/keys
 RUN wget -O /etc/apk/keys/app-protect-security-updates.rsa.pub https://cs.nginx.com/static/keys/app-protect-security-updates.rsa.pub
 
 # Add NGINX Plus repository:
-RUN printf "https://plus-pkgs.nginx.com/alpine/v`egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release`/main\n" | tee -a /etc/apk/repositories
+RUN printf "https://pkgs.nginx.com/plus/alpine/v`egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release`/main\n" | tee -a /etc/apk/repositories
+
+# Add NGINX App Protect repository:
+RUN printf "https://pkgs.nginx.com/app-protect/alpine/v`egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release`/main\n" | tee -a /etc/apk/repositories
 
 # Add security updates repository
-RUN printf "https://app-protect-security-updates.nginx.com/alpine/v`egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release`/main\n" | tee -a /etc/apk/repositories
+RUN printf "https://pkgs.nginx.com/app-protect-security-updates/alpine/v`egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release`/main\n" | tee -a /etc/apk/repositories
 
 # Update the repository and install the most recent version of the NGINX App Protect package (which includes NGINX Plus):
 RUN apk update && apk add bash curl jq
+RUN apk add yq --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
+RUN apk add nginx-plus
 RUN apk add app-protect-compiler
 RUN apk add app-protect-attack-signatures
+RUN apk add app-protect-threat-campaigns
 # RUN apk add app-protect-attack-signatures=2020.12.28-r1
 
 # Remove nginx repository key/cert from docker
