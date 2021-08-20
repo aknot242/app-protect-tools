@@ -72,3 +72,23 @@ From the signature list, generate and export 50 signature override policy fragme
 ```shell
 cat tmp/signature-report.json | jq '[.signatures[] | select(.hasCve==true)] | .[0:50] | to_entries | map({ "method": "*", "name": ("/test" + (.value.signatureId | tostring) + "*"), "protocol": "http", "type": "wildcard", "wildcardOrder": (.key+1), "signatureOverrides": [ { "enabled": false, "signatureId": .value.signatureId }]})'
 ```
+
+### Validating a Policy Against the App Protect Schema
+This is an example as to how you can use the [Ajv Validator CLI](https://github.com/ajv-validator/ajv-cli) to validate a JSON policy file against the NGINX App Protect [JSON schema](https://json-schema.org/).
+NOTE: This example does not use the Docker container above.
+
+1. Install [Node.js](https://nodejs.org/en/)
+
+2. Install the `ajv-cli` validator npm package globally:
+```shell
+npm install -g ajv-cli
+```
+3. Install the `ajv-formats` npm package globally:
+```shell
+npm install ajv-formats -g
+```
+
+4. Perform the policy validation:
+```shell
+ajv validate -d <path to json policy>  -s policy_schema.json -c ajv-formats
+```
