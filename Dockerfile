@@ -1,11 +1,6 @@
 # For Alpine 3.10:
 FROM alpine:3.10
 
-# Download certificate and key from the customer portal (https://my.f5.com)
-# and copy to the build context:
-COPY license/nginx-repo.key /etc/apk/cert.key
-COPY license/nginx-repo.crt /etc/apk/cert.pem
-
 # Download and add the NGINX signing key:
 RUN wget -O /etc/apk/keys/nginx_signing.rsa.pub https://cs.nginx.com/static/keys/nginx_signing.rsa.pub
 
@@ -22,16 +17,10 @@ RUN printf "https://pkgs.nginx.com/app-protect/alpine/v`egrep -o '^[0-9]+\.[0-9]
 RUN printf "https://pkgs.nginx.com/app-protect-security-updates/alpine/v`egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release`/main\n" | tee -a /etc/apk/repositories
 
 # Update the repository and install the most recent version of the NGINX App Protect package (which includes NGINX Plus):
-RUN apk update && apk add bash curl jq
-RUN apk add yq --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
-RUN apk add nginx-plus
-RUN apk add app-protect-compiler
-RUN apk add app-protect-attack-signatures
-RUN apk add app-protect-threat-campaigns
-# RUN apk add app-protect-attack-signatures=2020.12.28-r1
-
-# Remove nginx repository key/cert from docker
-RUN rm -rf /etc/apk/cert.*
+RUN --mount=type=secret,id=nginx-repo.crt,dst=/etc/apk/cert.pem,mode=0644 \
+	--mount=type=secret,id=nginx-repo.key,dst=/etc/apk/cert.key,mode=0644 \
+    apk update && apk add bash curl jq nginx-plus app-protect-compiler app-protect-attack-signatures app-protect-threat-campaigns \
+        && apk add yq --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
 
 COPY ./convert.sh convert.sh
 COPY ./signature-report.sh signature-report.sh
