@@ -23,7 +23,7 @@ Then, build the tools container:
 
 ``` shell
 
-docker build --no-cache --secret id=nginx-repo.crt,src=license/nginx-repo.crt --secret id=nginx-repo.key,src=license/nginx-repo.key -t app-protect-tools .
+DOCKER_BUILDKIT=1 docker build --no-cache --secret id=nginx-crt,src=license/nginx-repo.crt --secret id=nginx-key,src=license/nginx-repo.key -t app-protect-tools .
 
 ```
 **NOTE:** If you need to change the signature package to be reported on, you must alter the Dockerfile to install the desired signature package, then rebuild the container before running the signature port commands.

@@ -17,10 +17,10 @@ RUN printf "https://pkgs.nginx.com/app-protect/alpine/v`egrep -o '^[0-9]+\.[0-9]
 RUN printf "https://pkgs.nginx.com/app-protect-security-updates/alpine/v`egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release`/main\n" | tee -a /etc/apk/repositories
 
 # Update the repository and install the most recent version of the NGINX App Protect package (which includes NGINX Plus):
-RUN --mount=type=secret,id=nginx-repo.crt,dst=/etc/apk/cert.pem,mode=0644 \
-	--mount=type=secret,id=nginx-repo.key,dst=/etc/apk/cert.key,mode=0644 \
+RUN --mount=type=secret,id=nginx-crt,dst=/etc/apk/cert.pem,mode=0644 \
+    --mount=type=secret,id=nginx-key,dst=/etc/apk/cert.key,mode=0644 \
     apk update && apk add bash curl jq nginx-plus app-protect-compiler app-protect-attack-signatures app-protect-threat-campaigns \
-        && apk add yq --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
+    && apk add yq --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
 
 COPY ./convert.sh convert.sh
 COPY ./signature-report.sh signature-report.sh
