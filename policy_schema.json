@@ -1,6 +1,5 @@
 {
    "$id": "schema.policy.json",
-   "type": "object",
    "$schema": "http://json-schema.org/draft-07/schema#",
    "definitions": {
       "link": {
@@ -457,7 +456,6 @@
             "browser-definitions": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/browser-definitions/items",
                      "items": {
                         "properties": {
                            "$action": {
@@ -498,7 +496,6 @@
             "character-sets": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/character-sets/items",
                      "items": {
                         "properties": {
                            "characterSet": {
@@ -545,7 +542,6 @@
             "cookie-settings": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/cookie-settings/items",
                      "description": "The maximum length of a cookie header name and value that the system processes. The system calculates and enforces a cookie header length based on the sum of the length of the cookie header name and value.",
                      "properties": {
                         "maximumCookieHeaderLength": {
@@ -575,7 +571,6 @@
             "cookies": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/cookies/items",
                      "items": {
                         "description": "This section defines Cookie entities for your policy.\nYou can specify the cookies that you want to allow, and the ones you want to enforce in a security policy:\n\n- **Allowed cookies**: The system allows these cookies and clients can change them.\n- **Enforced cookies**: The system enforces the cookies in the list (not allowing clients to change them) and allows clients to change all others.",
                         "properties": {
@@ -656,7 +651,6 @@
             "csrf-protection": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/csrf-protection/items",
                      "properties": {
                         "enabled": {
                            "type": "boolean"
@@ -688,7 +682,6 @@
             "csrf-urls": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/csrf-urls/items",
                      "items": {
                         "properties": {
                            "$action": {
@@ -734,7 +727,6 @@
             "data-guard": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/data-guard/items",
                      "description": "Data Guard feature can prevent responses from exposing sensitive information by masking the data.",
                      "properties": {
                         "creditCardNumbers": {
@@ -795,7 +787,6 @@
             "enforcer-settings": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/enforcer-settings/items",
                      "description": "This section contains all enforcer settings.",
                      "properties": {
                         "enforcerStateCookies": {
@@ -837,7 +828,6 @@
             "filetypes": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/filetypes/items",
                      "items": {
                         "description": "File types are categorization of the URLs in the request by the extension appearing past the last dot at the end of the URL. For example, the file type of /index.php\nis \"php\". Other well known file types are html, aspx, png, jpeg and many more. A special case is the \"empty\" file type called \"no-ext\" meaning, no extension in which the URL has no dot at its last segment as in /foo_no_dot\n\nFile types usually imply the expected content type in the response. For example, html and php return HTML content, while jpeg, png and gif return images, each in its respective format. File types also imply the server technology deployed for rendering the page. For example, php (PHP), aspx (ASP) and many others.\n\nThe security policy uses file types for several purposes:\n1. Ability to define which file types are allowed and which are disallowed. By including the pure wildcard \"\\*\" file type and a list of disallowed file types you have a file type denylist.\nBy having a list of explicit file type *without* the pure wildcard \"\\*\" you have a file type allowlist.\n2. Each file type implies maximum *length restrictions* for the requests of that file type. The checked lengths are per the URL, Query String, total request length, and payload (POST data).\n3. Each file type determines whether to detect *response signatures* for requests of that file type. Typically, one would never check signatures for image file types.",
                         "properties": {
@@ -926,7 +916,6 @@
             "general": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/general/items",
                      "description": "This section includes several advanced policy configuration settings.",
                      "properties": {
                         "allowedResponseCodes": {
@@ -962,7 +951,6 @@
             "grpc-profiles": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/grpc-profiles/items",
                      "items": {
                         "properties": {
                            "$action": {
@@ -1079,7 +1067,6 @@
             "header-settings": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/header-settings/items",
                      "description": "The maximum length of an HTTP header name and value that the system processes. The system calculates and enforces the HTTP header length based on the sum of the length of the HTTP header name and value.",
                      "properties": {
                         "maximumHttpHeaderLength": {
@@ -1109,7 +1096,6 @@
             "headers": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/headers/items",
                      "items": {
                         "description": "This section defines Header entities for your policy.",
                         "properties": {
@@ -1206,7 +1192,6 @@
             "host-names": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/host-names/items",
                      "items": {
                         "properties": {
                            "$action": {
@@ -1237,7 +1222,6 @@
             "idl-files": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/idl-files/items",
                      "items": {
                         "oneOf": [
                            {
@@ -1296,7 +1280,6 @@
             "json-profiles": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/json-profiles/items",
                      "items": {
                         "properties": {
                            "$action": {
@@ -1465,7 +1448,6 @@
             "json-validation-files": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/json-validation-files/items",
                      "items": {
                         "oneOf": [
                            {
@@ -1523,7 +1505,6 @@
             "methods": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/methods/items",
                      "items": {
                         "properties": {
                            "$action": {
@@ -1588,7 +1569,6 @@
             "parameters": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/parameters/items",
                      "items": {
                         "description": "This section defines parameters that the security policy permits in requests.",
                         "properties": {
@@ -1938,7 +1918,6 @@
             "response-pages": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/response-pages/items",
                      "items": {
                         "description": "The Security Policy has a default blocking response page that it returns to the client when the client request, or the web server response, is blocked by the security policy. The system also has a login response page for login violations. You can change the way the system responds to blocked logins or blocked requests. All default response pages contain a variable, <%TS.request.ID()%>, that the system replaces with a support ID number when it issues the page.",
                         "properties": {
@@ -2058,7 +2037,6 @@
             "sensitive-parameters": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/sensitive-parameters/items",
                      "items": {
                         "description": "This section defines sensitive parameters.\nThe contents of these parameters are not visible in logs nor in the user interfaces.\nInstead of actual values a string of asterisks is shown for these parameters.\nUse these parameters to protect sensitive user input, such as a password or a credit card number, in a validated request.\nA parameter name of \"password\" is always defined as sensitive by default.",
                         "properties": {
@@ -2088,7 +2066,6 @@
             "server-technologies": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/server-technologies/items",
                      "items": {
                         "description": "The server technology is a server-side application, framework, web server or operating system type that is configured in the policy in order to adapt the policy to the checks needed for the respective technology.",
                         "properties": {
@@ -2115,7 +2092,6 @@
             "signature-requirements": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/signature-requirements/items",
                      "items": {
                         "properties": {
                            "$action": {
@@ -2149,7 +2125,6 @@
             "signature-sets": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/signature-sets/items",
                      "items": {
                         "description": "Defines behavior when signatures found within a signature-set are detected in a request. Settings are culmulative, so if a signature is found in any set with block enabled, that signature will have block enabled.",
                         "properties": {
@@ -2318,7 +2293,6 @@
             "signature-settings": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/signature-settings/items",
                      "properties": {
                         "minimumAccuracyForAutoAddedSignatures": {
                            "enum": [
@@ -2339,7 +2313,6 @@
             "signatures": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/signatures/items",
                      "items": {
                         "description": "This section defines the properties of a signature on the policy.",
                         "properties": {
@@ -2388,7 +2361,6 @@
             "threat-campaigns": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/threat-campaigns/items",
                      "items": {
                         "description": "This section defines the enforcement state for the threat campaigns in the security policy.",
                         "properties": {
@@ -2416,7 +2388,6 @@
             "urls": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/urls/items",
                      "items": {
                         "description": "In a security policy, you can manually specify the HTTP URLs that are allowed (or disallowed) in traffic to the web application being protected. When you create a security policy, wildcard URLs of * (representing all HTTP URLs) are added to the Allowed HTTP URLs lists.",
                         "properties": {
@@ -2817,7 +2788,6 @@
             "whitelist-ips": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/whitelist-ips/items",
                      "items": {
                         "description": "An IP address exception is an IP address that you want the system to treat in a specific way for a security policy.\nYou can use the IP address exception feature to create exceptions for IP addresses of internal tools that your company uses, such as penetration tools, manual or automatic scanners, or web scraping tools.\nYou can add an IP address exception and instruct the system how to handle traffic coming from that address.",
                         "properties": {
@@ -2847,6 +2817,10 @@
                            "ipMask": {
                               "description": "Specifies the netmask of the exceptional IP address. This is an optional field.",
                               "type": "string"
+                           },
+                           "neverLogRequests": {
+                              "description": "Specifies when enabled that the system does not log requests or responses sent from this IP address, even if the traffic is illegal, and even if your security policy is configured to log all traffic.\nSpecifies when disabled that the system logs traffic sent this IP address according to the settings of the security policy's Logging Profile, and the violation settings on the Policy Building Settings.",
+                              "type": "boolean"
                            }
                         },
                         "required": [
@@ -2865,7 +2839,6 @@
             "xml-profiles": {
                "oneOf": [
                   {
-                     "$id": "#/properties/policy/properties/xml-profiles/items",
                      "items": {
                         "properties": {
                            "$action": {
@@ -3084,5 +3057,6 @@
          ],
          "type": "object"
       }
-   }
+   },
+   "type": "object"
 }

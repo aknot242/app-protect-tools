@@ -79,18 +79,20 @@ cat tmp/signature-report.json | jq '[.signatures[] | select(.hasCve==true)] | .[
 This is an example as to how you can use the [Ajv Validator CLI](https://github.com/ajv-validator/ajv-cli) to validate a JSON policy file against the NGINX App Protect [JSON schema](https://json-schema.org/).
 NOTE: This example does not use the Docker container above.
 
-1. Install [Node.js](https://nodejs.org/en/)
+1. Export the JSON schema from App Protect using the instructions [here](https://docs.nginx.com/nginx-app-protect/configuration/#policy-configuration-overview). Though it is best to export the schema from the version of App Protect that is installed, you may optionally use a copy of the schema file as of App Protect 3.6 is included in the root of this repo.
 
-2. Install the `ajv-cli` validator npm package globally:
+2. Install [Node.js](https://nodejs.org/en/)
+
+3. Install the `ajv-cli` validator npm package globally:
 ```shell
 npm install -g ajv-cli
 ```
-3. Install the `ajv-formats` npm package globally:
+4. Install the `ajv-formats` npm package globally:
 ```shell
 npm install ajv-formats -g
 ```
 
-4. Perform the policy validation:
+5. Perform the policy validation:
 ```shell
-ajv validate -d <path to json policy>  -s policy_schema.json -c ajv-formats
+ajv validate -d <path to json policy>  -s <path to json schema> -c ajv-formats
 ```
