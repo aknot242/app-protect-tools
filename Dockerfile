@@ -1,26 +1,31 @@
-# For Alpine 3.10:
-FROM alpine:3.10
+# For Ubuntu 20.04:
+FROM ubuntu:focal
+
+# Install prerequisite packages:
+RUN apt-get update && apt-get install -y apt-transport-https lsb-release ca-certificates software-properties-common wget gnupg2
 
 # Download and add the NGINX signing key:
-RUN wget -O /etc/apk/keys/nginx_signing.rsa.pub https://cs.nginx.com/static/keys/nginx_signing.rsa.pub
+RUN wget https://cs.nginx.com/static/keys/nginx_signing.key && apt-key add nginx_signing.key
 
-# Download and add the security updates signing key:
-RUN wget -O /etc/apk/keys/app-protect-security-updates.rsa.pub https://cs.nginx.com/static/keys/app-protect-security-updates.rsa.pub
+# Download and add the NGINX Security Updates signing key:
+RUN wget https://cs.nginx.com/static/keys/app-protect-security-updates.key && apt-key add app-protect-security-updates.key
 
-# Add NGINX Plus repository:
-RUN printf "https://pkgs.nginx.com/plus/alpine/v`egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release`/main\n" | tee -a /etc/apk/repositories
+# Download the yq signing key
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CC86BB64
 
-# Add NGINX App Protect repository:
-RUN printf "https://pkgs.nginx.com/app-protect/alpine/v`egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release`/main\n" | tee -a /etc/apk/repositories
+# Add NGINX App-protect repository:
+RUN printf "deb https://pkgs.nginx.com/app-protect/ubuntu `lsb_release -cs` nginx-plus\n" | tee /etc/apt/sources.list.d/nginx-app-protect.list
 
 # Add security updates repository
-RUN printf "https://pkgs.nginx.com/app-protect-security-updates/alpine/v`egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release`/main\n" | tee -a /etc/apk/repositories
+RUN printf "deb https://pkgs.nginx.com/app-protect-security-updates/ubuntu/ `lsb_release -cs` nginx-plus\n" | tee /etc/apt/sources.list.d/app-protect-security-updates.list
 
-# Update the repository and install the most recent version of the NGINX App Protect package (which includes NGINX Plus):
-RUN --mount=type=secret,id=nginx-crt,dst=/etc/apk/cert.pem,mode=0644 \
-    --mount=type=secret,id=nginx-key,dst=/etc/apk/cert.key,mode=0644 \
-    apk update && apk add bash curl jq nginx-plus app-protect-compiler app-protect-attack-signatures app-protect-threat-campaigns \
-    && apk add yq --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
+# Download the apt configuration to `/etc/apt/apt.conf.d`:
+RUN wget -P /etc/apt/apt.conf.d https://cs.nginx.com/static/files/90pkgs-nginx
+
+# Update the repository and install the most recent version of the NGINX App Protect WAF Compiler package, Signatures and Threat Campaigns and other utilities
+RUN --mount=type=secret,id=nginx-crt,dst=/etc/ssl/nginx/nginx-repo.crt,mode=0644 \
+    --mount=type=secret,id=nginx-key,dst=/etc/ssl/nginx/nginx-repo.key,mode=0644 \
+    add-apt-repository ppa:rmescandon/yq && apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install -y curl jq yq app-protect-compiler app-protect-attack-signatures app-protect-threat-campaigns
 
 COPY ./convert.sh convert.sh
 COPY ./signature-report.sh signature-report.sh
