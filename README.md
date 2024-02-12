@@ -1,5 +1,5 @@
 # NGINX App Protect Tools
-This repo is a quickstart for using the [App Protect converter tools](https://docs.nginx.com/nginx-app-protect/configuration/#converter-tools) released in v2.3 in your CI/CD pipeline. The tool examples use Ubuntu 20.04 in a Docker container to highlight that these tools can be used in a fast, yet ephemeral manner.
+This repo is a quickstart for using the [App Protect converter tools](https://docs.nginx.com/nginx-app-protect-waf/configuration-guide/configuration/#converter-tools) released in v2.3 in your CI/CD pipeline. The tool examples use Ubuntu 20.04 in a Docker container to highlight that these tools can be used in a fast, yet ephemeral manner.
 
 The available tools are:
 - **Policy Converter** - 
